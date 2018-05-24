@@ -17,6 +17,7 @@
     "gulp-inject": "^4.3.2",
     "gulp-jscs": "^4.1.0",
     "gulp-jshint": "^2.1.0",
+    "gulp-nodemon": "^2.2.1",
     "jscs": "^3.0.7",
     "jshint": "^2.9.5",
     "jshint-stylish": "^2.2.1",
