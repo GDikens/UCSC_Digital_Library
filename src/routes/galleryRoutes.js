@@ -1,6 +1,6 @@
 var express = require('express');
 
-var galleryRouter = express.Router();
+var bookStoreRouter = express.Router();
 
 var router = function(nav){
     
@@ -97,16 +97,16 @@ var router = function(nav){
         
     ];
     
-    galleryRouter.route('/')
+    bookStoreRouter.route('/')
         .get(function(req,res){
-        res.render('gallery',{
-            title:'UCSC Digital Library Gallery',
+        res.render('bookstore',{
+            title:'UCSC Digital Library Book Store',
             nav:nav,
             books:books
         });
     });
     
-    galleryRouter.route('/:_id')
+    bookStoreRouter.route('/:_id')
         .get(function(req,res){
         var id = req.params._id;
         res.render('bookView',{
@@ -116,7 +116,7 @@ var router = function(nav){
         });
     });
 
-    return galleryRouter;
+    return bookStoreRouter;
 
 };
 
