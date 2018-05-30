@@ -11,8 +11,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1>UCSC Digital Library
-          <p class="lead"></p>
+        <h1>Book Store
+          <p class="lead">Here are all the books we have</p>
         </h1>
       </div>
       <div class="col-md-5">
@@ -55,14 +55,14 @@
             <div class="row">    
               <br>
               <div class="col-md-2 col-sm-3 text-center">
-                <a class="story-title" href="#"><img alt="" src="<%=books[i].thumbnailUrl%>" style="width:100px;height:100px"></a>
+                <a class="story-title" href="<%=books.thumbnailUrl%>"><img alt="" src="<%=books[i].thumbnailUrl%>" style="width:100px;height:100px"></a>
               </div>
               <div class="col-md-10 col-sm-9">
                 <h3><%=books[i].title%></h3>
                 <div class="row">
                   <div class="col-xs-9">
                     <h4><span class="label label-default"><%=books[i].authors%></span></h4><h4>
-                    <small style="font-family:courier,'new courier';" class="text-muted">ISBN <%=books[i].isbn%><a href="/gallery/<%=i%>" class="text-muted"> Read More</a></small>
+                    <small style="font-family:courier,'new courier';" class="text-muted">ISBN <%=books[i].isbn%><a href="/bookstore/<%=i%>" class="text-muted"> Read More</a></small>
                     </h4></div>
                   <div class="col-xs-3"></div>
                 </div>
