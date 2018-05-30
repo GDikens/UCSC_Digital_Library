@@ -6,15 +6,15 @@ var port = process.env.PORT || 5000;
 
 var nav = [
     {
-        Link:'/gallery',
-        Text: 'Gallery'
+        Link:'/bookstore',
+        Text: 'Book Store'
     },
     {
         Link:'/library',
         Text: 'Library'
     }
 ];
-var galleryRouter = require('./src/routes/galleryRoutes')(nav);
+var bookStoreRouter = require('./src/routes/galleryRoutes')(nav);
 
 app.use(express.static('public'));
 // app.use(express.static('src/views'));
@@ -22,7 +22,7 @@ app.use(express.static('public'));
 app.set('views','./src/views');
 app.set('view engine','ejs');
 
-app.use('/gallery',galleryRouter);
+app.use('/bookstore',bookStoreRouter);
 
 app.get('/',function(req,res){
     res.render('index',{
