@@ -1,28 +1,22 @@
 {
-  "name": "ucsc_library",
+  "name": "ucsc_digital_library",
   "version": "1.0.0",
-  "description": "Online Library Management System for UCSC Undergraduate students",
-  "main": "index.js",
+  "description": "UCSC Digital Library for undergraduates at University of Colombo School of Computing",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "author": "Dineth Kariyawasam",
-  "license": "ISC",
   "dependencies": {
-    "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "jade": "^1.11.0"
+    "express": "*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
   },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-inject": "^4.3.2",
-    "gulp-jscs": "^4.1.0",
-    "gulp-jshint": "^2.1.0",
-    "gulp-nodemon": "^2.2.1",
-    "jscs": "^3.0.7",
-    "jshint": "^2.9.5",
-    "jshint-stylish": "^2.2.1",
-    "wiredep": "^4.0.0"
-  }
+  "author": "Dineth Kariyawasam",
+  "license": "ISC"
 }

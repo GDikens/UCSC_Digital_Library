@@ -1,44 +1,60 @@
-var express = require('express');
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const passport = require('passport');
+const mongoose = require('mongoose');
+const config = require('./config/database');
 
-var app = express();
+// Connect To Database
+mongoose.connect(config.database);
 
-var port = process.env.PORT || 5000;
-
-var nav = [
-    {
-        Link:'/bookstore',
-        Text: 'Book Store'
-    },
-    {
-        Link:'/library',
-        Text: 'Library'
-    }
-];
-var bookStoreRouter = require('./src/routes/galleryRoutes')(nav);
-
-app.use(express.static('public'));
-// app.use(express.static('src/views'));
-
-app.set('views','./src/views');
-app.set('view engine','ejs');
-
-app.use('/bookstore',bookStoreRouter);
-
-app.get('/',function(req,res){
-    res.render('index',{
-        title:'Welcome to UCSC Digital Library',
-        nav:nav
-    });
+// On connection
+mongoose.connection.on('connected', () => {
+    console.log('Connected to database '+ config.database);
 });
 
-// app.get('/',function(req,res){
-//     res.send('index');
-// });
-
-app.get('/category',function(req,res){
-    res.send('UCSC_Library Project');
+// On connection error
+mongoose.connection.on('error', (err) => {
+    console.log('Database error '+ err);
 });
 
-app.listen(port,function(err){
-    console.log('running server on port '+port);
+const app = express();
+
+const users = require('./routes/users');
+const books = require('./routes/books');
+
+// Port number
+const port = 3000;
+
+// CORS Middleware
+app.use(cors());
+
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Body Parser Middleware
+app.use(bodyParser.json());
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
+
+app.use('/users',users);
+app.use('/books',books);
+
+// Index Route
+app.get('/', (req,res) => {
+    res.send('Invalid Endpoint');
+});
+
+app.get('*', (req, res) => {
+    res.sendfile(path.join(__dirname,'public/index.html'));
+});
+
+// Start Server
+app.listen(port, () => {
+    console.log('Server started on port '+port);
 });
