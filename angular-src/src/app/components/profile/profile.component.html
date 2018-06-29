@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<br>
+<div *ngIf="User" class="card profile">
+    <h1>{{ User.name }}</h1>
+    <p class="title">{{ User.email }}</p>
+    <p>{{ User.username }}</p>
+    <p><button>Edit Profile</button></p>
+</div>
+<br><br>
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-dark">
+                <div class="card-header">
+                    Fines due
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Here are you fines</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-dark">
+                <div class="card-header">
+                    Books to return
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">The books you should return</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-dark">
+                <div class="card-header">
+                    My Progress
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Your insights in a nutshell</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    

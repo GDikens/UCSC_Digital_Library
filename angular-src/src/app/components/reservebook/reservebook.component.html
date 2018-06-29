@@ -1,0 +1,76 @@
+<div class="container">
+  <br>
+  <div class="alert alert-light" role="alert">
+      <h4 class="alert-heading">Reserve Books</h4>
+      <!-- <p>Reserve a book</p> -->
+      <p class="mb-0">
+        <legend>Reserve books</legend>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <form (submit)="onReserveSubmit()">
+                <div class="form-group">
+                    <!-- <label for="bookidFormControlInput">Book ID</label>
+                    <input type="text" [(ngModel)]="bookid" name="bookid" class="form-control" id="bookidFormControlInput" disabled> -->
+                    <!-- <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Book ID" [(ngModel)]="bookid" name="bookid" disabled>
+                    </mat-form-field> -->
+                    <mat-form-field class="example-full-width">
+                        <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Book Title" aria-label="Book Title" [matAutocomplete]="auto" [formControl]="bookidFormControl">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let result of Results | slice:0:3" [value]="result._id">
+                                <span>{{ result.title }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <!-- <label for="useridFormControlInput">User ID</label>
+                    <input type="text" [(ngModel)]="userid" name="userid" class="form-control" id="useridFormControlInput" disabled> -->
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="User ID" [formControl]="useridFormControl" disabled>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <!-- <label for="dateFormControlInput">Date</label>
+                    <input type="text" [(ngModel)]="date" name="date" class="form-control" id="dateFormControlInput" value="{{ today | date }}" required> -->
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Date" [formControl]="dateFormControl">
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <!-- <label for="timeFormControlInput">Time</label>
+                    <input type="text" [(ngModel)]="time" name="time" class="form-control" id="timeFormControlInput" value="{{ today | date:'HH:mm' }}" required> -->
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Time" [formControl]="timeFormControl">
+                    </mat-form-field>
+                </div>
+                <button mat-raised-button type="submit" color="primary" name="submit">Reserve</button>
+                <!-- <button type="reset" class="btn btn-primary" name="cancel">Cancel</button> -->
+            </form>
+          </div>
+          <div class="col-md-6">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image">
+                        <i class="fas fa-align-justify fa-3x"></i>
+                    </div>
+                    <mat-card-title>Reservations</mat-card-title>
+                    <mat-card-subtitle>You got two reservations</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-chip-list class="mat-chip-list-stacked">
+                        <mat-chip selected [color]="primary">Reservation 1</mat-chip>
+                        <mat-chip selected [color]="primary">Reservation 2</mat-chip>
+                    </mat-chip-list>
+                </mat-card-content>
+                <mat-card-actions>
+                    <!-- <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button> -->
+                </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      
+  </div>
+</div>

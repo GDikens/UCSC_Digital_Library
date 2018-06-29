@@ -16,9 +16,6 @@ const BookSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    thumbnailUrl: {
-        type: String
-    },
     shortDescription: {
         type: String
     },
@@ -44,10 +41,15 @@ module.exports.getBookById = function(id, callback){
 };
 
 module.exports.getBookByTitle = function(title, callback){
-    const query = {title: title};
-    Book.findOne(query, callback);
+    var keyword = new RegExp(title, 'i');
+    Book.find({title: keyword}, callback);
+    console.log(title);
 };
 
 module.exports.addBook = function(newBook, callback){
     newBook.save(callback); 
+};
+
+module.exports.getTenBooks = function(callback){
+    Book.find({},callback).limit(10);
 };

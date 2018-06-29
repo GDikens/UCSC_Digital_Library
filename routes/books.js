@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const config = require('../config/database');
 const Book = require('../models/books');
-const Reserve = require('../models/reserve');
+ 
 
 // Add Book
 router.post('/addbook', (req, res, next) => {
@@ -13,7 +13,6 @@ router.post('/addbook', (req, res, next) => {
         title: req.body.title,
         isbn: req.body.isbn,
         pageCount: req.body.pageCount,
-        thumbnailUrl: req.body.thumbnailUrl,
         shortDescription: req.body.shortDescription,
         authors: req.body.authors,
         numberOfCopys: req.body.numberOfCopys,
@@ -29,27 +28,28 @@ router.post('/addbook', (req, res, next) => {
     });
 });
 
-// Reserve Book
-router.post('/reservebook', (req, res, next) => {
-    let newReserve = new Reserve({
-        userId: req.body.userId,
-        bookId: req.body.bookId,
-        time: req.body.time,
-        date: req.body.date,
-        fines: req.body.fines
-    });
-
-    Reserve.addReserve(newReserve, (err, reserve) => {
+// Get Some books
+router.get('/getsomebooks', (req, res, next) => {
+    Book.getTenBooks((err, books) => {
         if(err){
-            res.json({success:false, msg:'Failed to add the reserve'});
+            res.json({success:false, msg:'Failed to get books'});
         } else {
-            res.json({success:true, msg:'Successfully added'});
+            res.json(books);
         }
     });
 });
 
-router.get('/pp', (req, res, next) => {
-    res.send('This is working');
+// Get book titles
+router.get('/getbooktitle', (req, res, next) => {
+    
+    Book.getBookByTitle(req.query.title, (err, book) => {
+        if(err){
+            res.json({success:false, msg:'Failed to get book by title', error: err});
+        } else {
+            res.json(book);
+        }
+    });
+
 });
 
 

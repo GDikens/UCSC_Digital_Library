@@ -5,24 +5,20 @@ const config = require('../config/database');
 // Reserve Schema
 const ReserveSchema = mongoose.Schema({
     userId: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     bookId: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Book'
     },
     time: {
         type: String,
         required: true
     },
     date: {
-        type: Date,
+        type: String,
         required: true
-    },
-    fines: {
-        type: Number,
-        default: '0'
     }
 });
 
@@ -42,6 +38,6 @@ module.exports.getReserveByBook = function(title, callback){
     Reserve.findOne(query, callback);
 };
 
-module.exports.addRserve = function(newReserve, callback){
+module.exports.addReserve = function(newReserve, callback){
     newReserve.save(callback); 
 };

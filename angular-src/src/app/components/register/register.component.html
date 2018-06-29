@@ -1,0 +1,41 @@
+<app-home-navbar></app-home-navbar>
+
+<div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">User Registration</h1>
+          <p class="lead">Submit this form to be a member of UCSC Digital Library</p>
+        </div>
+</div>
+
+<div class="container">
+    <!-- <ng-flash-message></ng-flash-message> -->
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form (submit)="onRegisterSubmit()">
+                <div class="form-group">
+                    <label for="nameFormControlInput">Name</label>
+                    <input type="text" [(ngModel)]="name" name="name" class="form-control" id="nameFormControlInput">
+                </div>
+                <div class="form-group">
+                    <label for="usernameFormControlInput">Username</label>
+                    <input type="text" [(ngModel)]="username" name="username" class="form-control" id="usernameFormControlInput">
+                </div>
+                <div class="form-group">
+                    <label for="emailFormControlInput">Email address</label>
+                    <input type="email" [(ngModel)]="email" name="email" class="form-control" id="emailFormControlInput" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="passwordFormControlInput">Password</label>
+                    <input type="password" [(ngModel)]="password" name="password" class="form-control" id="passwordFormControlInput">
+                </div>
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+
+
+
