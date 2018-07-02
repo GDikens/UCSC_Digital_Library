@@ -18,16 +18,19 @@ export class SidebarComponent implements OnInit {
   sendSidebarValue(value){
     switch(value){
       case 1: 
-        this.dataservice.changeSidebarValue("addbook")
+        this.dataservice.changeSidebarValue("addbook");
         break;
       case 2:
-        this.dataservice.changeSidebarValue("searchbook")
+        this.dataservice.changeSidebarValue("searchbook");
         break;
       case 3:
-        this.dataservice.changeSidebarValue("reservebook")
+        this.dataservice.changeSidebarValue("reservebook");
         break;
       case 4:
-        this.dataservice.changeSidebarValue("fines")
+        this.dataservice.changeSidebarValue("fines");
+        break;
+      case 5:
+        this.dataservice.changeSidebarValue("returnbook");
     }
   }
 

@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
         this.ngsnotifyService.onSuccess('User registered successfully!','Success');
         this.router.navigate(['/register']);
       } else {
-        this.ngsnotifyService.onError('Something went wrong','Error');
+        this.ngsnotifyService.onError(data.msg,'Error');
         this.router.navigate(['/register']);
       }
     });

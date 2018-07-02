@@ -14,29 +14,61 @@
                         
                         <legend>Add Books</legend>
                         <br>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="titleFormControlInput">Title</label>
                             <input type="text" [(ngModel)]="title" name="title" class="form-control" id="titleFormControlInput" required>
-                        </div>
+                        </div> -->
                         <div class="form-group">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Title" [formControl]="titleFormControl">
+                          </mat-form-field>
+                        </div>
+                        <!-- <div class="form-group">
                             <label for="isbnFormControlInput">ISBN</label>
                             <input type="text" [(ngModel)]="isbn" name="isbn" class="form-control" id="isbnFormControlInput" required>
-                        </div>
+                        </div> -->
                         <div class="form-group">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="ISBN" [formControl]="isbnFormControl">
+                          </mat-form-field>
+                        </div>
+                        <!-- <div class="form-group">
                             <label for="pagecountFormControlInput">Page Count</label>
                             <input type="text" [(ngModel)]="pagecount" name="pagecount" class="form-control" id="pagecountFormControlInput" required>
-                        </div>
+                        </div> -->
                         <div class="form-group">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Page Count" [formControl]="pageCountFormControl">
+                          </mat-form-field>
+                        </div>
+                        <!-- <div class="form-group">
                             <label for="shortdescriptionFormControlInput">Short Description</label>
                             <textarea class="form-control" [(ngModel)]="shortdescription" name="shortdescription" id="shortdescriptionFormControlInput" rows="3"></textarea>
-                        </div>
+                        </div> -->
                         <div class="form-group">
+                          <p>
+                            <mat-form-field class="example-full-width">
+                              <textarea matInput placeholder="Short Description" [formControl]="shortDescriptionFormControl"></textarea>
+                            </mat-form-field>
+                          </p>
+                        </div>
+                        <!-- <div class="form-group">
                             <label for="authorsFormControlInput">Authors</label>
                             <input type="text" [(ngModel)]="authors" name="authors" class="form-control" id="authorsFormControlInput">
-                        </div>
+                        </div> -->
                         <div class="form-group">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Authors" [formControl]="authorsFormControl">
+                          </mat-form-field>
+                        </div>
+                        <!-- <div class="form-group">
                             <label for="noofcopysFormControlInput">Number of Copys</label>
                             <input type="text" [(ngModel)]="noofcopys" name="noofcopys" class="form-control" id="noofcopysFormControlInput" required>
+                        </div> -->
+                        <div class="form-group">
+                          <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Number of Copys" [formControl]="noOfCopysFormControl">
+                          </mat-form-field>
                         </div>
                         <button mat-raised-button type="submit" color="primary" name="submit">Submit</button>
                         <!-- <button type="reset" class="btn btn-primary" name="cancel">Cancel</button> -->
@@ -44,21 +76,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <div class="example-container">
-                      <mat-form-field>
-                        <input matInput placeholder="Input">
-                      </mat-form-field>
                     
-                      <mat-form-field>
-                        <textarea matInput placeholder="Textarea"></textarea>
-                      </mat-form-field>
-                    
-                      <mat-form-field>
-                        <mat-select placeholder="Select">
-                          <mat-option value="option">Option</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
                 </div>
             </div>
             

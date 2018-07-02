@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
+import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { NgsnotifyService } from '../../services/ngsnotify.service';
 import { Router } from '@angular/router';
@@ -10,12 +11,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./addbook.component.css']
 })
 export class AddbookComponent implements OnInit {
-  title: String;
-  isbn: Number;
-  pagecount: Number;
-  shortdescription: String;
-  authors: String;
-  noofcopys: Number;
+  titleFormControl = new FormControl();
+  isbnFormControl = new FormControl();
+  pageCountFormControl = new FormControl();
+  shortDescriptionFormControl = new FormControl();
+  authorsFormControl = new FormControl();
+  noOfCopysFormControl = new FormControl();
+
+
+  // title: String;
+  // isbn: Number;
+  // pagecount: Number;
+  // shortdescription: String;
+  // authors: String;
+  // noofcopys: Number;
 
   constructor(
     private validateService: ValidateService, 
@@ -30,13 +39,21 @@ export class AddbookComponent implements OnInit {
   onBookSubmit(){
 
     const book = {
-      title: this.title,
-      isbn: this.isbn,
-      pageCount: this.pagecount,
-      shortDescription: this.shortdescription,
-      authors: this.authors,
-      numberOfCopys: this.noofcopys,
-      copysLeft: this.noofcopys
+      // title: this.title,
+      // isbn: this.isbn,
+      // pageCount: this.pagecount,
+      // shortDescription: this.shortdescription,
+      // authors: this.authors,
+      // numberOfCopys: this.noofcopys,
+      // copysLeft: this.noofcopys
+
+      title: this.titleFormControl.value,
+      isbn: this.isbnFormControl.value,
+      pageCount: this.pageCountFormControl.value,
+      shortDescription: this.shortDescriptionFormControl.value,
+      authors: this.authorsFormControl.value,
+      numberOfCopys: this.noOfCopysFormControl.value,
+      copysLeft: this.noOfCopysFormControl.value
     }
 
     // Required Fields
@@ -55,16 +72,14 @@ export class AddbookComponent implements OnInit {
     this.authService.addBook(book).subscribe(data => {
       if(data.success){
         this.ngsnotifyService.onSuccess('Book added successfully!','Success');
-        this.title = null;
-        this.isbn = null;
-        this.pagecount = null;
-        this.shortdescription = null;
-        this.authors = null;
-        this.noofcopys = null;
-        this.router.navigate(['/dashboard']);
+        this.titleFormControl.setValue("");
+        this.isbnFormControl.setValue("");
+        this.pageCountFormControl.setValue("");
+        this.shortDescriptionFormControl.setValue("");
+        this.authorsFormControl.setValue("");
+        this.noOfCopysFormControl.setValue("");
       } else {
         this.ngsnotifyService.onError('Something went wrong','Error');
-        this.router.navigate(['/dashboard']);
       }
     });
     

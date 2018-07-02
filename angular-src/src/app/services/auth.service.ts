@@ -82,6 +82,10 @@ export class AuthService {
     return this.http.get('http://localhost:3000/books/getsomebooks').pipe(map(res => res.json()));
   }
 
+  getReserveData(userId){
+    return this.http.get('http://localhost:3000/reserve/getreserve?userId='+userId).pipe(map(res => res.json()));  
+  }
+
   bookSearch(terms: Observable <string>) {
     return terms.debounceTime(400)
       .distinctUntilChanged()
@@ -92,6 +96,18 @@ export class AuthService {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     return this.http.get('http://localhost:3000/books/getbooktitle?title='+term,{headers: headers}).map(res => res.json());
+  }
+
+  getReservations(userId){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/reserve/getreserve?userId='+userId,{headers: headers}).map(res => res.json());
+  }
+
+  returnBook(reserves){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/reserve/deletereserve?bookList='+JSON.stringify(reserves),{headers: headers}).map(res => res.json());
   }
 
 }

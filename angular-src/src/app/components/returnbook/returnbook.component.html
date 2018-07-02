@@ -1,0 +1,60 @@
+<div class="container">
+    <br>
+    <div class="alert alert-light" role="alert">
+        <!-- <h4 class="alert-heading">Return Books</h4> -->
+        <!-- <p>Search all the books in Library</p> -->
+        <p class="mb-0">
+          <legend>Return books</legend>
+          <br>
+          <form (submit)="onSubmitReturnBooks()">
+            <table mat-table [dataSource]="Reserve" class="mat-elevation-z8">
+
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+            
+              <!-- Book Title Column -->
+              <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let reserve"> {{reserve.bookId}} </td>
+              </ng-container>
+            
+              <!-- Authors Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let reserve"> {{reserve.date}} </td>
+              </ng-container>
+            
+              <!-- No of Copys Left Column -->
+              <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef> Time </th>
+                <td mat-cell *matCellDef="let reserve"> {{reserve.time}} </td>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row class="book-element-rows" *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+            </table>
+            
+            <br>
+            <button mat-raised-button type="submit" color="primary" name="submit">Return</button>
+
+          </form>
+        
+    </div>
+</div>
+  
+  
+  
+  

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
+import { NgsnotifyService } from '../../services/ngsnotify.service';
+import { ValidateService } from '../../services/validate.service';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -19,24 +21,29 @@ export class ReservebookComponent implements OnInit {
   timeFormControl = new FormControl({ value: 'n/a', disabled: true });
 
   Results = [];
+  Reservations = [];
   searchTerm$ = new Subject<string>();
 
   bookid: String;
   userid: String;
-  date: String;
+  today: number = Date.now();
   time: String;
   title: String;
 
 
+
   constructor(
     private dataservice: DataService,
-    private authservice: AuthService
+    private authService: AuthService,
+    private ngsnotifyService:NgsnotifyService,
+    private validateService: ValidateService,
   ) { 
-    this.authservice.bookSearch(this.searchTerm$).subscribe(results => {
+    this.authService.bookSearch(this.searchTerm$).subscribe(results => {
       this.Results = results;
       console.log(this.Results);
       // console.log(this.myControl.value);
     });
+
   }
 
   ngOnInit() {
@@ -52,9 +59,38 @@ export class ReservebookComponent implements OnInit {
     // this.bookidFormControl.setValue();
     // });
     // console.log(this.today);
+    this.authService.getReservations(this.userid).subscribe(reservations => {
+      this.Reservations = reservations;
+      // console.log(reservations);
+      console.log(this.Reservations);
+    });
+    console.log(this.today);
   }
 
   onReserveSubmit(){
+    const reserve = {
+      userId: this.useridFormControl.value,
+      bookId: this.bookidFormControl.value,
+      date: this.dateFormControl.value,
+      time: this.timeFormControl.value
+    }
+
+    // Required Fields
+    if(!this.validateService.validateReserveBook(reserve)){
+      this.ngsnotifyService.onWarning('Please fill required fields','Warning');
+      return false;
+    }
+
+    // Add book
+    this.authService.addReserve(reserve).subscribe(data => {
+      if(data.success){
+        this.ngsnotifyService.onSuccess(data.msg,'Success');
+        
+      } else {
+        this.ngsnotifyService.onError(data.msg,'Error');
+      }
+    });
+
     console.log(this.bookidFormControl.value);
   }
 

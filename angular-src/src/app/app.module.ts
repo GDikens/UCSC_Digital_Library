@@ -15,7 +15,8 @@ import {
   MatAutocompleteModule,
   MatInputModule,
   MatCardModule,
-  MatChipsModule 
+  MatChipsModule,
+  MatCheckboxModule 
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { AuthService } from './services/auth.service';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { AuthGuard } from './guards/auth.guard';
 import { DataService } from './services/data.service';
+import { ReturnbookComponent } from './components/returnbook/returnbook.component';
 
 
 const appRoutes: Routes = [
@@ -65,7 +67,8 @@ const appRoutes: Routes = [
     AddbookComponent,
     SearchbookComponent,
     ReservebookComponent,
-    FinesComponent
+    FinesComponent,
+    ReturnbookComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ const appRoutes: Routes = [
     MatAutocompleteModule,
     MatInputModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule
   ],
   providers: [
     ValidateService, 

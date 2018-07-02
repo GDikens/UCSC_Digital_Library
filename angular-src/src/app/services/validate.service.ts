@@ -40,4 +40,12 @@ export class ValidateService {
     }
   }
 
+  validateReserveBook(reserve){
+    if(reserve.userId == undefined || reserve.bookId == undefined || reserve.date == undefined || reserve.time == undefined){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 }
