@@ -15,21 +15,131 @@ router.post('/reservebook', (req, res, next) => {
         date: req.body.date
     });
 
-    Book.updateCopysLeft(bookId, (err, book) => {
+    Reserve.getReserveByUserCount(newReserve.userId, (err, count) => {
+
         if(err){
-            res.json({success:false, msg:'Failed to update the book schema'});
+            res.json({success: false, msg:'Failed to get the reservations'});
+
         } else {
-            res.json({success:true, msg:'Successfully updated the book schema'});
+
+            if(count == 2){
+                res.json({success: false, msg:'Sorry, you are out of reservations'});
+                
+            } else {
+
+                Book.getBookById(newReserve.bookId, (err,book) => {
+                    if(err){
+                        res.json({success:false, msg:'Failed to get the book'});
+            
+                    } else {
+            
+                        if(book.copysLeft == 0){
+                            res.json({success:false, msg:'All the copys of this book is gone'});
+            
+                        } else if(book.copysLeft <= book.numberOfCopys){
+            
+                            Book.updateCopysLeft(newReserve.bookId, (err, book) => {
+            
+                                if(err){
+                                    res.json({success:false, msg:'Failed to update Book schema'});
+                                } else {
+            
+                                    Reserve.addReserve(newReserve, (err, reserve) => {
+            
+                                        if(err){
+                                            res.json({success:false, msg:'Failed to add the reserve'});
+                                        } else {
+                                            res.json({success:true, msg:'Successfully reserved the book'});
+                                        }
+            
+                                    });
+                                }
+            
+                            });
+                        }
+                    }
+                });
+            
+            }
+
         }
     });
 
-    Reserve.addReserve(newReserve, (err, reserve) => {
+});
+
+router.get('/getreserve', (req, res, next) => {
+
+    Reserve.getReserveByUser(req.query.userId, (err, reserve) => {
         if(err){
-            res.json({success:false, msg:'Failed to add the reserve'});
+            res.json({success: false, msg:'Failed to get the reserve'});
         } else {
-            res.json({success:true, msg:'Successfully reserved the book'});
+            res.json(reserve);
         }
     });
+
+});
+
+router.get('/deletereserve', (req, res, next) => {
+
+    var error = 0;
+
+    //const bookList = JSON.parse(req.query.bookList);
+    const reserves = JSON.parse(req.query.bookList);
+    
+    for(var i=0;i<reserves.length;i++){
+        
+        const bookList = {
+            bookId:reserves[i].bookId,
+            userId:reserves[i].userId
+        };
+
+        Book.getBookById(bookList.bookId, (err, book) => {
+
+            if(err){
+                error++;
+            
+            } else {
+                
+                if(book.numberOfCopys == book.copysLeft){
+                    error++;
+                
+                } else if(book.numberOfCopys > book.copysLeft) {
+    
+                    Book.updateCopysLeftBack(bookList.bookId, (err, book) => {
+    
+                        if(err){
+                            error++;
+                
+                        } else {
+                
+                            Reserve.deleteReserve(bookList.userId, bookList.bookId, (err, reserve) => {
+                
+                                if(err){
+                                    error++;
+                                
+                                } else {
+                                    error = 0;
+                                }
+                
+                            });
+                        }
+                    });
+                    
+                }
+            }
+    
+        });
+
+    }
+
+    if(error>0){
+        console.log(error);
+        res.json({success: false, msg:'Failed to delete reservations'});
+    } else {
+        console.log(error);
+        res.json({success: true, msg:'Successfully returned the books'});
+    }
+
 });
 
 

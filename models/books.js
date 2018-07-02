@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
@@ -37,7 +39,9 @@ const BookSchema = mongoose.Schema({
 const Book = module.exports = mongoose.model('Book', BookSchema);
 
 module.exports.getBookById = function(id, callback){
-    Book.findById(id, callback);
+    var objectId = mongoose.Types.ObjectId(id);
+    //console.log(objectId);
+    Book.findById(objectId, callback);
 };
 
 module.exports.getBookByTitle = function(title, callback){
@@ -52,4 +56,16 @@ module.exports.addBook = function(newBook, callback){
 
 module.exports.getTenBooks = function(callback){
     Book.find({},callback).limit(10);
+};
+
+module.exports.updateCopysLeft = function(id, callback){
+    var objectId = mongoose.Types.ObjectId(id);
+    Book.findByIdAndUpdate(objectId, { $inc: { copysLeft: -1 } }, { new: true }, callback);
+    //Book.findById(objectId, callback);
+};
+
+module.exports.updateCopysLeftBack = function(id, callback){
+    var objectId = mongoose.Types.ObjectId(id);
+    Book.findByIdAndUpdate(objectId, { $inc: { copysLeft: 1 } }, { new: true }, callback);
+    //Book.findById(objectId, callback);
 };

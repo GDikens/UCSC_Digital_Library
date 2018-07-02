@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
